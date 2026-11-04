@@ -3,7 +3,28 @@
  set('[data-groom]',c.groom||'Groom');set('[data-bride]',c.bride||'Bride');set('[data-groom-full]',c.groomFull||c.groom||'GROOM');set('[data-bride-full]',c.brideFull||c.bride||'BRIDE');set('[data-groom-parents]',c.groomParents||'');set('[data-bride-parents]',c.brideParents||'');set('[data-date-long]',c.dateLong||'Wedding Date');set('[data-venue]',c.venue||'Wedding Venue');set('[data-time]',c.time||'Time');set('[data-address]',c.address||'Venue address');set('.date-ribbon span',c.dateRibbon||c.dateLong||'');
  (c.events||[]).forEach((e,i)=>{set(`[data-event${i+1}-date]`,e.date);set(`[data-event${i+1}-venue]`,e.venue);set(`[data-event${i+1}-title]`,e.title||'')});
  $('#mapLink').href=c.mapUrl||'#';const rsvpText=encodeURIComponent(`Congratulations ${c.groom} & ${c.bride}! I will join your celebration.`);$('#rsvpLink').href=c.whatsappNumber?`https://wa.me/${c.whatsappNumber}?text=${rsvpText}`:`https://wa.me/?text=${rsvpText}`;
- const gate=$('#gate'),main=$('#invitation');$('#openInvite').addEventListener('click',()=>{gate.classList.add('opening');setTimeout(()=>{gate.classList.add('gone');main.classList.add('visible');main.setAttribute('aria-hidden','false');document.body.classList.add('unlocked');$('#musicToggle').hidden=false;$('#bgMusic').play().then(()=>$('#musicToggle').classList.add('playing')).catch(()=>{});},1750)});
+ const gate=$('#gate'),main=$('#invitation');let entranceStarted=false;
+ const openEntrance=()=>{
+   if(entranceStarted)return;entranceStarted=true;
+   gate.classList.add('opening');
+   // Reveal the first invitation section behind the doors while they are still moving.
+   window.setTimeout(()=>{
+     main.classList.add('visible');
+     main.setAttribute('aria-hidden','false');
+     document.body.classList.add('unlocked');
+   },650);
+   // Fade the entrance away only after the page underneath is already visible.
+   window.setTimeout(()=>{
+     gate.classList.add('gone');
+     $('#musicToggle').hidden=false;
+     const audio=$('#bgMusic');
+     audio.play().then(()=>$('#musicToggle').classList.add('playing')).catch(()=>{});
+   },1750);
+ };
+ gate.addEventListener('click',openEntrance);
+ gate.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openEntrance()}});
+ gate.setAttribute('role','button');gate.setAttribute('tabindex','0');
+
  $('#musicToggle').addEventListener('click',()=>{const a=$('#bgMusic');if(a.paused){a.play().catch(()=>{});$('#musicToggle').classList.add('playing')}else{a.pause();$('#musicToggle').classList.remove('playing')}});
  const target=new Date(c.weddingDate||'2026-12-17T19:00:00');function tick(){let ms=Math.max(0,target-new Date()),d=Math.floor(ms/86400000),h=Math.floor(ms/3600000)%24,m=Math.floor(ms/60000)%60,s=Math.floor(ms/1000)%60;$('#countdown').innerHTML=[[d,'DAYS'],[h,'HOURS'],[m,'MINUTES'],[s,'SECONDS']].map(([n,l])=>`<div><strong>${String(n).padStart(2,'0')}</strong><small>${l}</small></div>`).join('')}tick();setInterval(tick,1000);
  const canvas=$('#scratchCanvas'),ctx=canvas.getContext('2d');let drawing=false,cleared=false;function setup(){const r=canvas.getBoundingClientRect(),dpr=window.devicePixelRatio||1;canvas.width=r.width*dpr;canvas.height=r.height*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#b9a17a';ctx.fillRect(0,0,r.width,r.height);ctx.fillStyle='#fff0c9';ctx.font='600 17px Cormorant Garamond';ctx.textAlign='center';ctx.fillText('SCRATCH HERE ✧',r.width/2,r.height/2);ctx.globalCompositeOperation='destination-out'}setup();function scratch(e){if(!drawing)return;const r=canvas.getBoundingClientRect(),p=e.touches?e.touches[0]:e;ctx.beginPath();ctx.arc(p.clientX-r.left,p.clientY-r.top,23,0,Math.PI*2);ctx.fill();}function start(e){drawing=true;scratch(e)}function end(){drawing=false;const d=ctx.getImageData(0,0,canvas.width,canvas.height).data;let n=0;for(let i=3;i<d.length;i+=32)if(d[i]===0)n++;if(n>d.length/32*.38&&!cleared){cleared=true;canvas.classList.add('cleared')}}canvas.addEventListener('pointerdown',start);canvas.addEventListener('pointermove',scratch);window.addEventListener('pointerup',end);canvas.addEventListener('touchstart',start,{passive:true});canvas.addEventListener('touchmove',scratch,{passive:true});window.addEventListener('touchend',end);window.addEventListener('resize',()=>{if(!cleared)setup()});

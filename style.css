@@ -48,3 +48,89 @@
  .open-button{padding:8px 20px;margin-top:5px}
 }
 @media(prefers-reduced-motion:reduce){.gate-art{animation:none}.door{transition-duration:.25s}}
+
+/* SECTION 01 FIX — correct door proportions, seamless reveal, full-screen tap */
+.gate{cursor:pointer;touch-action:manipulation}
+.gate-frame{overflow:hidden}
+.gate-art{background-size:cover;background-position:center center;transform:none;animation:entrance-breathe 24s ease-in-out infinite alternate}
+@keyframes entrance-breathe{from{transform:scale(1)}to{transform:scale(1.035)}}
+.door-pair{
+  top:18%;
+  width:min(75vh,86vw);
+  height:auto;
+  aspect-ratio:1.1887 / 1;
+  max-height:64vh;
+  max-width:86vw;
+  transform:translateX(-50%);
+  overflow:visible;
+}
+.door{width:50%;height:100%;flex:0 0 50%;background-size:100% 100%;background-position:center;background-repeat:no-repeat}
+.door-left{background-image:url("assets/stone-door-left.webp")}
+.door-right{background-image:url("assets/stone-door-right.webp")}
+.door-seam{left:49.7%;width:.6%;top:2%;height:96%;z-index:3}
+.gate-copy{bottom:6.5%;pointer-events:none}
+.gate-copy .open-button{pointer-events:auto;cursor:pointer}
+.gate-top,.gate-bottom{pointer-events:none}
+.open-button{animation:tap-pulse 2.6s ease-in-out infinite}
+@keyframes tap-pulse{0%,100%{box-shadow:0 0 0 4px rgba(218,160,67,.14),0 7px 24px rgba(0,0,0,.4)}50%{box-shadow:0 0 0 8px rgba(218,160,67,.23),0 7px 28px rgba(0,0,0,.48)}}
+.gate.opening .gate-art{transform:scale(1.12);transition:transform 2.2s cubic-bezier(.2,.7,.2,1)}
+.gate.opening .door-left{transform:perspective(1500px) rotateY(-118deg) translateX(-3%);transition:transform 1.65s cubic-bezier(.72,0,.2,1)}
+.gate.opening .door-right{transform:perspective(1500px) rotateY(118deg) translateX(3%);transition:transform 1.65s cubic-bezier(.72,0,.2,1)}
+.gate.opening .door-seam{opacity:0;transition:opacity .35s}
+.gate.opening .gate-copy,.gate.opening .gate-top,.gate.opening .gate-bottom{opacity:0;transition:opacity .55s}
+.gate.gone{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .8s,visibility 0s .8s}
+.invitation{opacity:0;visibility:hidden;transition:opacity 1.25s ease,visibility 0s linear 1.25s}
+.invitation.visible{opacity:1;visibility:visible;transition:opacity 1.25s ease,visibility 0s}
+@media(max-width:700px){
+ .door-pair{top:22%;width:min(86vw,58vh);max-width:86vw;max-height:50vh;aspect-ratio:1.1887/1}
+ .gate-copy{bottom:8%}
+ .gate-names{font-size:clamp(28px,7.4vw,42px)}
+ .gate-copy small{font-size:9px}
+ .gate-top{top:3%}
+}
+@media(max-height:620px) and (orientation:landscape){
+ .door-pair{top:13%;width:min(68vh,66vw);max-height:67vh}
+ .gate-copy{bottom:2%}
+}
+@media(prefers-reduced-motion:reduce){
+ .gate-art,.open-button{animation:none}
+ .gate.opening .door-left,.gate.opening .door-right{transition-duration:.35s}
+}
+
+/* Final fit correction: gateway now fills the stone arch without floating rectangles. */
+.door-pair{
+  top:18%;
+  width:min(88vw,740px);
+  height:min(64vh,545px);
+  max-width:92vw;
+  max-height:66vh;
+  aspect-ratio:auto;
+  display:flex;
+  overflow:hidden;
+  border-radius:2px;
+}
+.door{height:100%;width:50%;flex:0 0 50%;background-size:100% 100%;background-repeat:no-repeat}
+.door-left{background-image:url("assets/stone-door-left.webp")}
+.door-right{background-image:url("assets/stone-door-right.webp")}
+.door-seam{left:49.7%;width:.6%;top:1%;height:98%}
+.gate-art{background-position:center center}
+@media(max-width:700px){
+ .door-pair{top:22%;width:94vw;height:auto;aspect-ratio:1.32/1;max-height:52vh}
+ .gate-copy{bottom:7%}
+ .gate-names{font-size:clamp(26px,7.2vw,40px)}
+}
+@media(max-height:620px) and (orientation:landscape){
+ .door-pair{top:12%;width:min(86vw,700px);height:70vh;max-height:70vh}
+ .gate-copy{bottom:1.5%}
+}
+
+.door-plaque{
+ position:absolute;z-index:4;left:50%;top:60%;transform:translate(-50%,-50%);
+ width:38%;height:25%;border:2px solid rgba(241,195,104,.95);border-radius:999px;
+ background:radial-gradient(ellipse at 50% 35%,rgba(119,47,17,.97),rgba(48,15,8,.98));
+ box-shadow:0 0 0 5px rgba(22,8,4,.5),0 0 26px rgba(255,177,62,.42),inset 0 0 0 2px rgba(255,220,153,.22);
+ pointer-events:none;transition:opacity .4s;
+}
+.gate.opening .door-plaque{opacity:0}
+.door-pair{width:min(92vw,790px);height:min(66vh,560px)}
+@media(max-width:700px){.door-pair{width:94vw;height:auto;aspect-ratio:1.32/1;max-height:52vh}.door-plaque{width:42%;height:26%;top:60%}}
