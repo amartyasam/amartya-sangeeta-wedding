@@ -134,3 +134,94 @@
 .gate.opening .door-plaque{opacity:0}
 .door-pair{width:min(92vw,790px);height:min(66vh,560px)}
 @media(max-width:700px){.door-pair{width:94vw;height:auto;aspect-ratio:1.32/1;max-height:52vh}.door-plaque{width:42%;height:26%;top:60%}}
+
+/* FINAL V1 DESIGN SYSTEM — royal Odisha heritage */
+:root{scroll-behavior:smooth;scroll-padding-top:24px}
+body{background:#f8e8c7;color:#4b241a}
+.scroll-progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#9d1725,#d7a64e);z-index:1000;box-shadow:0 0 10px rgba(196,142,53,.5)}
+.section-shell{position:relative;isolation:isolate}
+.section-shell:before{pointer-events:none}
+.intro{min-height:100svh;padding:clamp(36px,6vh,70px) 20px 70px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow:hidden}
+.intro .top-blessing{color:#9b1b26;letter-spacing:.2em;font-family:'Noto Serif Oriya',serif}
+.intro .script{margin-top:14px;color:#a86b24}
+.intro h1{z-index:2;display:flex;flex-direction:column;align-items:center;gap:0;color:#941725;font-family:'Cormorant Garamond',serif;font-size:clamp(42px,8vw,100px);line-height:.88;letter-spacing:.025em;text-align:center;text-shadow:0 3px 0 rgba(255,255,255,.35)}
+.intro h1 span{font-size:.78em}
+.intro h1 i{font-family:'Great Vibes',cursive;font-size:.58em;font-weight:400;color:#b57a30;margin:8px 0}
+.temple-art{width:min(94vw,880px);height:clamp(280px,48vh,490px);margin-top:-5px}
+.intro-date{z-index:2;color:#a21b26;letter-spacing:.25em;font-size:clamp(12px,2vw,17px);margin-top:-4px}
+.scroll-cue{z-index:2;bottom:20px}
+.welcome{padding-top:80px;padding-bottom:100px}
+.date-ribbon{max-width:780px;margin:0 auto 65px}
+.welcome-copy{max-width:780px;margin:auto}
+.welcome-copy h2,.events h2,.couple h2,.location h2,.rsvp h2{letter-spacing:.055em}
+.countdown-section{padding-top:70px;padding-bottom:90px}
+.countdown{max-width:850px;margin:28px auto 55px}
+.scratch-wrap{max-width:850px;margin:auto}
+.scratch-card{max-width:540px;margin:24px auto 0}
+.couple{padding-top:90px;padding-bottom:95px}
+.couple-grid{max-width:900px;margin:35px auto 0;gap:clamp(18px,5vw,60px)}
+.portrait-frame{max-width:350px;margin:0 auto}
+.portrait-placeholder{min-height:360px}
+.events{padding-top:90px;padding-bottom:100px}
+.section-intro{max-width:620px;margin:15px auto 40px;color:#765144;line-height:1.8}
+.event-list{max-width:980px;margin:0 auto;gap:22px}
+.event-card{border:1px solid rgba(177,123,46,.5);border-radius:18px;overflow:hidden;box-shadow:0 12px 30px rgba(85,40,20,.09);background:rgba(255,250,237,.88);min-height:210px}
+.event-art{min-width:clamp(130px,24vw,230px)}
+.event-info{padding:clamp(18px,4vw,36px)}
+.event-info h3{font-size:clamp(25px,4vw,36px);color:#951a26}
+.event-info p{line-height:1.6}
+.location{padding:85px 18px}
+.location-panel{max-width:1050px;margin:auto;border-radius:28px;padding:clamp(25px,5vw,60px);background:rgba(255,249,235,.92);border:1px solid #d7a64e;box-shadow:0 18px 45px rgba(82,39,17,.1)}
+.location-details{max-width:620px;margin:35px auto}
+.map-placeholder{max-width:850px;margin:35px auto 0;min-height:260px;border-radius:20px;overflow:hidden}
+.rsvp{padding:95px 20px 70px}
+.rsvp>p:not(.script){max-width:620px;margin:20px auto;line-height:1.8}
+.gold-button{cursor:pointer;text-decoration:none}
+#shareInvite{font-family:'Cormorant Garamond',serif}
+.music-toggle{z-index:1001}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .85s ease,transform .85s cubic-bezier(.2,.7,.2,1)}
+.reveal.in-view{opacity:1;transform:translateY(0)}
+.event-card{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.event-card.in-view{opacity:1;transform:translateY(0)}
+.event-card:nth-child(2){transition-delay:.06s}.event-card:nth-child(3){transition-delay:.12s}.event-card:nth-child(4){transition-delay:.18s}.event-card:nth-child(5){transition-delay:.24s}
+.gate{cursor:pointer;touch-action:manipulation}
+.gate.gone{display:none}
+.invitation{opacity:0;visibility:hidden;transition:opacity 1.25s ease,visibility 0s linear 1.25s}
+.invitation.visible{opacity:1;visibility:visible;transition:opacity 1.25s ease,visibility 0s}
+@media(max-width:700px){
+ .intro{min-height:100svh;padding:42px 12px 65px}
+ .intro h1{font-size:clamp(39px,10vw,66px)}
+ .intro h1 span{font-size:.72em}
+ .temple-art{height:37vh;min-height:245px;max-height:350px;width:100%;margin-top:10px}
+ .intro-date{margin-top:0}
+ .welcome{padding:60px 18px 75px}
+ .date-ribbon{margin-bottom:42px}
+ .countdown-section,.couple,.events{padding:65px 16px}
+ .countdown{gap:9px}
+ .countdown>div{min-width:0;padding:18px 7px}
+ .countdown strong{font-size:clamp(27px,8vw,40px)}
+ .couple-grid{display:grid;grid-template-columns:1fr;gap:30px}
+ .ampersand{display:none}
+ .portrait-placeholder{min-height:300px}
+ .event-card{display:grid;grid-template-columns:112px 1fr;min-height:170px}
+ .event-art{min-width:0}
+ .event-info{padding:17px 14px}
+ .event-info h3{font-size:24px}
+ .event-info p{font-size:14px}
+ .location{padding:55px 12px}
+ .location-panel{padding:28px 18px;border-radius:20px}
+ .location-details{margin:25px auto}
+ .map-placeholder{min-height:210px}
+ .rsvp{padding:70px 18px 50px}
+}
+@media(prefers-reduced-motion:reduce){
+ :root{scroll-behavior:auto}
+ .reveal,.event-card{opacity:1;transform:none;transition:none}
+ .petal-layer{display:none}
+}
+
+/* A single clean invitation plaque masks any embedded decorative marks in the source artwork. */
+.door-plaque{left:50%;top:55%;width:52%;height:40%;border-radius:48px;background:linear-gradient(145deg,rgba(91,29,13,.98),rgba(35,10,7,.99));box-shadow:0 0 0 7px rgba(25,8,4,.42),0 0 30px rgba(255,180,70,.22),inset 0 0 0 2px rgba(255,224,166,.18)}
+.door-plaque:after{content:"✥  TAP TO OPEN  ✥";position:absolute;inset:0;display:grid;place-items:center;color:#ffe6b2;font:600 clamp(9px,1.3vw,16px) 'Cormorant Garamond',serif;letter-spacing:.18em}
+.gate.opening .door-plaque{opacity:0}
+@media(max-width:700px){.door-plaque{top:55%;width:54%;height:38%}}
