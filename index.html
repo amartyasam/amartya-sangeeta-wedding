@@ -86,9 +86,16 @@ body.gate-on{overflow:hidden}
 .g-small{font-size:clamp(.78rem,2.6vw,1.05rem);margin-top:6px}
 .g-names{font-size:clamp(2.3rem,10vw,5rem);margin-top:6px;padding-bottom:.08em}
 .g-date{font-size:clamp(.95rem,3.4vw,1.4rem);letter-spacing:.3em}
-.pill{position:absolute;left:50%;bottom:calc(26px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);display:flex;align-items:center;gap:14px;white-space:nowrap;padding:12px 26px 12px 16px;border-radius:999px;border:1px solid var(--gold);background:linear-gradient(180deg,rgba(54,14,10,.88),rgba(24,6,4,.88));box-shadow:0 8px 26px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,220,150,.18);font-size:clamp(.72rem,3vw,.98rem)}
+.tap-spot{position:absolute;left:var(--ox);top:var(--oy);transform:translate(-50%,-50%);z-index:2}
+.pill{position:relative;animation:pop .9s cubic-bezier(.34,1.56,.64,1) .5s both,press 2.2s ease-in-out 1.6s infinite;font-size:clamp(.82rem,3.4vw,1.05rem)!important;padding:15px 26px 15px 18px!important;box-shadow:0 0 0 0 rgba(244,207,116,.55),0 10px 30px rgba(0,0,0,.6)!important;display:flex;align-items:center;gap:14px;white-space:nowrap;padding:12px 26px 12px 16px;border-radius:999px;border:1px solid var(--gold);background:linear-gradient(180deg,rgba(54,14,10,.88),rgba(24,6,4,.88));box-shadow:0 8px 26px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,220,150,.18);font-size:clamp(.72rem,3vw,.98rem)}
 .pill .dot{position:relative;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF0B8,#D9A945 55%,#8a6216);flex:none}
 .pill .dot::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid #F4CF74;animation:ping 2s ease-out infinite}
+.pill .hand{width:24px;height:24px;color:#F4CF74;flex:none;animation:tap 2.2s ease-in-out 1.6s infinite}
+.pill::after{content:"";position:absolute;inset:-6px;border-radius:999px;border:2px solid rgba(244,207,116,.8);animation:halo 2.2s ease-out 1.6s infinite;opacity:0}
+@keyframes pop{0%{opacity:0;transform:scale(.4)}100%{opacity:1;transform:scale(1)}}
+@keyframes press{0%,100%{transform:scale(1)}45%{transform:scale(1.07)}55%{transform:scale(.97)}70%{transform:scale(1.03)}}
+@keyframes tap{0%,100%{transform:translateY(0)}45%{transform:translateY(-4px) rotate(-6deg)}55%{transform:translateY(2px)}}
+@keyframes halo{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.35)}}
 @keyframes ping{0%{transform:scale(.7);opacity:.9}100%{transform:scale(1.8);opacity:0}}
 
 /* ---------- Hero / bedi reveal ---------- */
@@ -118,6 +125,7 @@ body.revealed .g-in{opacity:1;transform:none;transition-delay:.5s}
 .dateband{margin:14px auto 0;padding:10px 6px;max-width:640px;border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);box-shadow:0 -4px 0 -3px var(--gold),0 4px 0 -3px var(--gold);font-size:clamp(.72rem,2.6vw,1rem);letter-spacing:.2em;color:#F4D48A;line-height:1.7}
 .dateband .sep{color:var(--gold)}
 .h-tag.mantra{font-family:var(--caps);font-style:normal;font-weight:600;letter-spacing:.2em;font-size:clamp(.95rem,3.2vw,1.45rem);color:#F4D48A}
+@media (max-width:560px){.h-tag.mantra{white-space:nowrap;font-size:3.35vw;letter-spacing:.05em}}
 .couple-grid h3 .pre{display:block;font-size:.55em;font-weight:500;letter-spacing:.04em;color:#7a4a3a}
 .scroll-cue{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:14px;font-family:var(--caps);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
 .scroll-cue::after{content:"";width:1px;height:26px;background:linear-gradient(var(--turmeric),transparent);transform-origin:top;animation:drip 2.4s ease-in-out infinite}
@@ -250,10 +258,7 @@ footer .sig{font-size:1.7rem;margin-top:14px}
 .celebrations .maptile:hover{transform:translateY(-2px);box-shadow:0 12px 22px -12px rgba(0,0,0,.55)}
 .celebrations .maptile:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .celebrations .maptile .map{position:absolute;inset:0;width:100%;height:100%;display:block}
-.celebrations .map-label{position:absolute;left:10px;top:10px;max-width:52%;display:flex;flex-direction:column;background:#FFFFFF;border-radius:8px;padding:6px 10px;box-shadow:0 1px 4px rgba(0,0,0,.18);font-family:Arial,Helvetica,sans-serif;line-height:1.25;max-width:60%}
-.celebrations .map-label b{font-size:.82rem;font-weight:600;color:#202124}
-.celebrations .map-label small{font-size:.7rem;color:#5F6368}
-.celebrations .map-cta{position:absolute;right:10px;bottom:10px;display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#FBF4E6;border-radius:999px;padding:9px 16px 8px;font-family:var(--caps);font-size:.66rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;box-shadow:0 4px 10px rgba(0,0,0,.25)}
+.celebrations .map-cta{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:8px;white-space:nowrap;background:var(--accent);color:#FBF4E6;border-radius:999px;padding:11px 20px 10px;font-family:var(--caps);font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;box-shadow:0 6px 16px rgba(0,0,0,.3),0 0 0 4px rgba(251,244,230,.7)}
 .celebrations .map-cta svg{width:14px;height:14px}
 .celebrations .e1{--accent:#B7760F;--tint:#FBE7B8}
 .celebrations .e2{--accent:#A11D21;--tint:#F7DCCF}
@@ -281,8 +286,31 @@ footer .sig{font-size:1.7rem;margin-top:14px}
 .celebrations .dim{display:none}
 }
 
+/* ---------- Scroll helpers: hand-drawn doodles, a floating nudge, and the music toggle ---------- */
+.doodle{display:flex;flex-direction:column;align-items:center;gap:2px;color:#E8B23A;padding-block:6px 10px;pointer-events:none}
+.doodle.l{align-items:flex-start;padding-left:max(16%, 24px)}
+.doodle.r{align-items:flex-end;padding-right:max(16%, 24px)}
+.doodle svg{width:52px;height:70px;opacity:.9;animation:bob 2.6s ease-in-out infinite}
+.doodle span{font-family:var(--display);font-style:italic;font-weight:500;font-size:1.05rem;color:#F7ECD7;opacity:.85;transform:rotate(-3deg)}
+.doodle.r span{transform:rotate(3deg)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.nudge,.music{position:fixed;z-index:90;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(232,178,58,.7);background:rgba(26,6,6,.78);color:#F4CF74;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.45);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .4s ease,transform .4s ease}
+.nudge{left:max(16px, env(safe-area-inset-left, 0px));bottom:calc(18px + env(safe-area-inset-bottom, 0px));transform:translateY(12px)}
+.music{right:max(16px, env(safe-area-inset-right, 0px));bottom:calc(18px + env(safe-area-inset-bottom, 0px));transform:translateY(12px)}
+.nudge.on{opacity:1;pointer-events:auto;transform:none}
+.music.on{opacity:1;pointer-events:auto;transform:none}
+.nudge svg{width:26px;height:30px;animation:bob 2s ease-in-out infinite}
+.music svg{width:24px;height:24px}
+.music .bars rect{transform-origin:50% 100%;animation:eq 1s ease-in-out infinite}
+.music .bars rect:nth-child(2){animation-delay:.2s}.music .bars rect:nth-child(3){animation-delay:.4s}
+.music.paused .bars rect{animation:none;transform:scaleY(.35)}
+.music .slash{display:none}.music.paused .slash{display:block}
+@keyframes eq{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+.nudge:focus-visible,.music:focus-visible{outline:2px solid #F4CF74;outline-offset:3px}
+
 @media (prefers-reduced-motion:reduce){
-  .g-float,.g-glow,.g-floor,.pill .dot::after,.scroll-cue::after{animation:none}
+  .g-float,.g-glow,.g-floor,.pill .dot::after,.scroll-cue::after,.pill,.pill .hand,.pill::after,.doodle svg,.nudge svg,.music .bars rect{animation:none}
+  .pill{opacity:1}
   .g-in{transition:opacity .4s ease}
 }
 </style>
@@ -306,9 +334,17 @@ footer .sig{font-size:1.7rem;margin-top:14px}
       <div class="drule" aria-hidden="true"><span></span><i></i><span></span></div>
       <p class="caps g-date">02 · 12 · 2026</p>
     </div>
-    <div class="pill caps"><span class="dot"></span>Tap to open the doors</div>
+    <div class="tap-spot"><div class="pill caps"><svg class="hand" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V4.5a1.5 1.5 0 0 1 3 0V10m0-1.5a1.5 1.5 0 0 1 3 0V11m0-1a1.5 1.5 0 0 1 3 0v4.5c0 3.6-2.4 6.5-6 6.5h-.6c-2 0-3.4-.8-4.6-2.4L4.2 14.3a1.5 1.5 0 0 1 2.3-1.9L9 15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Tap to open the doors</div></div>
   </div>
 </div>
+
+<audio id="bgm" src="audio/mangal-rang.mp3" loop preload="auto"></audio>
+<button class="music" id="musicBtn" type="button" aria-label="Pause music">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><g class="bars" fill="currentColor"><rect x="4" y="6" width="3" height="13" rx="1.5"/><rect x="10.5" y="3" width="3" height="16" rx="1.5"/><rect x="17" y="8" width="3" height="11" rx="1.5"/></g><path class="slash" d="M3 21 L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+</button>
+<button class="nudge" id="nudge" type="button" aria-label="Scroll down">
+  <svg viewBox="0 0 26 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3 C9 9 17 13 13 19"/><path d="M6 17 L13 26 L20 17"/></svg>
+</button>
 
 <header class="hero">
   <div class="hero-bg" id="heroBg" role="img" aria-label="Wedding bedi decorated with flowers and brass lamps in a temple courtyard">
@@ -364,6 +400,7 @@ footer .sig{font-size:1.7rem;margin-top:14px}
     </div>
   </div>
 </section>
+<div class="doodle r" aria-hidden="true"><svg viewBox="0 0 60 80" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6 C44 10 48 30 32 38 C16 46 18 62 34 70"/><path d="M25 63 L34 71 L41 60"/></svg><span>Scroll down</span></div>
 
 <section style="padding-top:0">
   <div class="wrap">
@@ -377,6 +414,7 @@ footer .sig{font-size:1.7rem;margin-top:14px}
     <p class="count-note" id="cd-note">Wednesday, 2 December 2026</p>
   </div>
 </section>
+<div class="doodle l" aria-hidden="true"><svg viewBox="0 0 60 80" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M30 4 C10 20 50 30 30 46 C14 58 34 64 30 74" stroke-dasharray="1 7"/><path d="M22 66 L30 76 L38 66"/></svg><span>Keep scrolling</span></div>
 
 <div class="kumbha down"></div>
 <section class="celebrations" aria-labelledby="cel-title">
@@ -396,6 +434,7 @@ footer .sig{font-size:1.7rem;margin-top:14px}
     <div class="lotus-rule" aria-hidden="true"><span></span>
       <svg viewBox="0 0 30 16"><path d="M15 1 C11 5 11 10 15 15 C19 10 19 5 15 1Z M15 15 C9 14 5 10 3 6 C8 6 12 9 15 15Z M15 15 C21 14 25 10 27 6 C22 6 18 9 15 15Z" fill="currentColor"/></svg>
     <span></span></div>
+    <div class="doodle " aria-hidden="true"><svg viewBox="0 0 60 80" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 10 C40 0 54 22 34 30 C20 36 26 18 38 24 C52 32 42 56 30 72"/><path d="M22 63 L30 73 L37 62"/></svg><span>Swipe up to see each ceremony</span></div>
   </header>
 
   <div class="stack">
@@ -409,12 +448,9 @@ footer .sig{font-size:1.7rem;margin-top:14px}
           <p class="lede">Turmeric, laughter and blessings for the couple</p>
           <div class="mini-lotus" aria-hidden="true"><span></span><svg viewBox="0 0 30 16"><path d="M15 1 C11 5 11 10 15 15 C19 10 19 5 15 1Z M15 15 C9 14 5 10 3 6 C8 6 12 9 15 15Z M15 15 C21 14 25 10 27 6 C22 6 18 9 15 15Z" fill="currentColor"/></svg><span></span></div>
           <dl class="facts"><dt>Date</dt><dd>Tuesday, 1 December 2026</dd><dt>Time</dt><dd>10:00 AM</dd></dl>
-          <div class="btns">
-            <a class="btn primary" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Haldi%20%E2%80%93%20Amartya%20%26%20Sangeeta&dates=20261201T100000/20261201T120000&ctz=Asia/Kolkata"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>Add to calendar</a>
-          </div>
         </div>
         <div class="art">
-          <div class="arch"><img src="images/haldi.webp" width="500" height="500" loading="lazy" decoding="async" alt="Illustration of the couple at the haldi bath with marigolds and a carved mirror"></div>
+          <div class="arch"><img src="images/haldi.webp" width="500" height="500" loading="eager" fetchpriority="low" decoding="async" alt="Illustration of the couple at the haldi bath with marigolds and a carved mirror"></div>
         </div>
         <div class="dim"></div>
       </div>
@@ -429,12 +465,9 @@ footer .sig{font-size:1.7rem;margin-top:14px}
           <p class="lede">The kalasa, the lamp and the first auspicious rites</p>
           <div class="mini-lotus" aria-hidden="true"><span></span><svg viewBox="0 0 30 16"><path d="M15 1 C11 5 11 10 15 15 C19 10 19 5 15 1Z M15 15 C9 14 5 10 3 6 C8 6 12 9 15 15Z M15 15 C21 14 25 10 27 6 C22 6 18 9 15 15Z" fill="currentColor"/></svg><span></span></div>
           <dl class="facts"><dt>Date</dt><dd>Tuesday, 1 December 2026</dd><dt>Time</dt><dd>4:00 PM</dd></dl>
-          <div class="btns">
-            <a class="btn primary" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mangalakrutya%20%E2%80%93%20Amartya%20%26%20Sangeeta&dates=20261201T160000/20261201T180000&ctz=Asia/Kolkata"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>Add to calendar</a>
-          </div>
         </div>
         <div class="art">
-          <div class="arch"><img src="images/mangalakrutya.webp" width="500" height="500" loading="lazy" decoding="async" alt="Illustration of a kalasa with coconut, brass lamp and a Pattachitra temple cloth"></div>
+          <div class="arch"><img src="images/mangalakrutya.webp" width="500" height="500" loading="eager" fetchpriority="low" decoding="async" alt="Illustration of a kalasa with coconut, brass lamp and a Pattachitra temple cloth"></div>
         </div>
         <div class="dim"></div>
       </div>
@@ -449,12 +482,9 @@ footer .sig{font-size:1.7rem;margin-top:14px}
           <p class="lede">Dhol, songs and dancing under the lanterns</p>
           <div class="mini-lotus" aria-hidden="true"><span></span><svg viewBox="0 0 30 16"><path d="M15 1 C11 5 11 10 15 15 C19 10 19 5 15 1Z M15 15 C9 14 5 10 3 6 C8 6 12 9 15 15Z M15 15 C21 14 25 10 27 6 C22 6 18 9 15 15Z" fill="currentColor"/></svg><span></span></div>
           <dl class="facts"><dt>Date</dt><dd>Tuesday, 1 December 2026</dd><dt>Time</dt><dd>6:30 PM</dd></dl>
-          <div class="btns">
-            <a class="btn primary" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sangeet%20%E2%80%93%20Amartya%20%26%20Sangeeta&dates=20261201T183000/20261201T213000&ctz=Asia/Kolkata"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>Add to calendar</a>
-          </div>
         </div>
         <div class="art">
-          <div class="arch"><img src="images/sangeet.webp" width="500" height="500" loading="lazy" decoding="async" alt="Illustration of the couple dancing beside a dhol and guitar under string lights"></div>
+          <div class="arch"><img src="images/sangeet.webp" width="500" height="500" loading="eager" fetchpriority="low" decoding="async" alt="Illustration of the couple dancing beside a dhol and guitar under string lights"></div>
         </div>
         <div class="dim"></div>
       </div>
@@ -473,7 +503,7 @@ footer .sig{font-size:1.7rem;margin-top:14px}
             <dt>Baraat</dt><dd>8:00 PM</dd>
             <dt>Venue</dt><dd>BBSR Club Annexe</dd>
           </dl>
-          <a class="maptile" target="_blank" rel="noopener" href="https://maps.app.goo.gl/fbxNoMwMuGxtkDU9A" aria-label="Get directions to BBSR Club Annexe in Google Maps">
+          <a class="maptile" href="https://www.google.com/maps/search/?api=1&amp;query=BBSR+Club+Annexe%2C+Bhubaneswar%2C+Odisha" aria-label="Get directions to BBSR Club Annexe in Google Maps">
             <svg class="map" viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
               <rect width="400" height="150" fill="#F1F3F4"/>
               <g>
@@ -491,21 +521,17 @@ footer .sig{font-size:1.7rem;margin-top:14px}
                 <path d="M-10 150 C90 128 170 110 230 74 C280 44 330 18 410 6" stroke="#A9BDD3" stroke-width="12" fill="none" stroke-linecap="round"/>
                 <path d="M-10 150 C90 128 170 110 230 74 C280 44 330 18 410 6" stroke="#C7D5E4" stroke-width="5" fill="none" stroke-linecap="round"/>
               </g>
-              <g transform="translate(262 40)">
+              <g transform="translate(330 40)">
                 <ellipse cx="0" cy="32" rx="7" ry="2.6" fill="rgba(0,0,0,.22)"/>
                 <path d="M0 32 C-3 22 -12 16 -12 6 A12 12 0 0 1 12 6 C12 16 3 22 0 32Z" fill="#EA4335"/>
                 <circle cx="0" cy="6" r="4.4" fill="#A52714"/>
               </g>
             </svg>
-            <span class="map-label"><b>BBSR Club Annexe</b><small>Bhubaneswar, Odisha</small></span>
             <span class="map-cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15Z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Get directions</span>
           </a>
-          <div class="btns">
-            <a class="btn primary" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Baraat%20%26%20Wedding%20%E2%80%93%20Amartya%20%26%20Sangeeta&dates=20261202T200000/20261202T230000&ctz=Asia/Kolkata&location=BBSR%20Club%20Annexe%2C%20Bhubaneswar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>Add to calendar</a>
-          </div>
         </div>
         <div class="art">
-          <div class="arch"><img src="images/baraat.webp" width="500" height="500" loading="lazy" decoding="async" alt="Illustration of the groom on a white horse under a red umbrella with dhol players"></div>
+          <div class="arch"><img src="images/baraat.webp" width="500" height="500" loading="eager" fetchpriority="low" decoding="async" alt="Illustration of the groom on a white horse under a red umbrella with dhol players"></div>
         </div>
         <div class="dim"></div>
       </div>
@@ -524,7 +550,7 @@ footer .sig{font-size:1.7rem;margin-top:14px}
             <dt>Time</dt><dd>7:00 PM onwards</dd>
             <dt>Venue</dt><dd>Hill Side Mandap, Dumduma</dd>
           </dl>
-          <a class="maptile" target="_blank" rel="noopener" href="https://maps.app.goo.gl/FDMSdSp6FJXKpFCX9" aria-label="Get directions to Hill Side Mandap in Google Maps">
+          <a class="maptile" href="https://www.google.com/maps/search/?api=1&amp;query=Hill+Side+Mandap%2C+Dumduma%2C+Bhubaneswar%2C+Odisha" aria-label="Get directions to Hill Side Mandap in Google Maps">
             <svg class="map" viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
               <rect width="400" height="150" fill="#F1F3F4"/>
               <g transform="translate(400 0) scale(-1 1)">
@@ -542,27 +568,24 @@ footer .sig{font-size:1.7rem;margin-top:14px}
                 <path d="M-10 150 C90 128 170 110 230 74 C280 44 330 18 410 6" stroke="#A9BDD3" stroke-width="12" fill="none" stroke-linecap="round"/>
                 <path d="M-10 150 C90 128 170 110 230 74 C280 44 330 18 410 6" stroke="#C7D5E4" stroke-width="5" fill="none" stroke-linecap="round"/>
               </g>
-              <g transform="translate(262 40)">
+              <g transform="translate(330 40)">
                 <ellipse cx="0" cy="32" rx="7" ry="2.6" fill="rgba(0,0,0,.22)"/>
                 <path d="M0 32 C-3 22 -12 16 -12 6 A12 12 0 0 1 12 6 C12 16 3 22 0 32Z" fill="#EA4335"/>
                 <circle cx="0" cy="6" r="4.4" fill="#A52714"/>
               </g>
             </svg>
-            <span class="map-label"><b>Hill Side Mandap</b><small>Dumduma, Bhubaneswar</small></span>
             <span class="map-cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15Z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Get directions</span>
           </a>
-          <div class="btns">
-            <a class="btn primary" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Reception%20%E2%80%93%20Amartya%20%26%20Sangeeta&dates=20261204T190000/20261204T230000&ctz=Asia/Kolkata&location=Hill%20Side%20Mandap%2C%20Dumduma%2C%20Bhubaneswar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>Add to calendar</a>
-          </div>
         </div>
         <div class="art">
-          <div class="arch"><img src="images/reception.webp" width="500" height="500" loading="lazy" decoding="async" alt="Illustration of the couple under a floral arch beside a sofa and lanterns"></div>
+          <div class="arch"><img src="images/reception.webp" width="500" height="500" loading="eager" fetchpriority="low" decoding="async" alt="Illustration of the couple under a floral arch beside a sofa and lanterns"></div>
         </div>
         <div class="dim"></div>
       </div>
     </article>
 
   </div>
+  <div class="doodle " aria-hidden="true"><svg viewBox="0 0 60 80" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6 C44 10 48 30 32 38 C16 46 18 62 34 70"/><path d="M25 63 L34 71 L41 60"/></svg><span>More below</span></div>
 </section>
 <div class="kumbha"></div>
 
@@ -585,7 +608,7 @@ footer .sig{font-size:1.7rem;margin-top:14px}
   <div class="wrap">
     <p class="odia gold f-odia">ଜୟ ଜଗନ୍ନାଥ</p>
     <p>With love and blessings from</p>
-    <p class="script gold sig">The Samantaray &amp; Behera Families</p>
+    <p class="script gold sig">The Samantaray Family</p>
   </div>
 </footer>
 
@@ -654,11 +677,38 @@ footer .sig{font-size:1.7rem;margin-top:14px}
   function preload(src){ var i = new Image(); i.src = src; return i.decode ? i.decode().catch(function(){}) : Promise.resolve(); }
   Promise.all([preload(gateSrc), preload("images/bedi.webp"), preload("images/bedi-1000.webp"), preload("images/ganesh.webp")]);
 
+
+  // ---------- Music: starts with the tap on the doors, loops, can be paused ----------
+  var bgm = document.getElementById("bgm");
+  var musicBtn = document.getElementById("musicBtn");
+  var wantMusic = true;
+  function setMusicUI(playing){ musicBtn.classList.toggle("paused", !playing); musicBtn.setAttribute("aria-label", playing ? "Pause music" : "Play music"); }
+  function playMusic(){ if (!bgm) return; bgm.volume = 0.8; var p = bgm.play(); if (p && p.then) p.then(function(){ setMusicUI(true); }).catch(function(){ setMusicUI(false); }); else setMusicUI(true); }
+  musicBtn.addEventListener("click", function(){
+    if (bgm.paused) { wantMusic = true; playMusic(); } else { wantMusic = false; bgm.pause(); setMusicUI(false); }
+  });
+  document.addEventListener("visibilitychange", function(){
+    if (document.hidden) { if (!bgm.paused) bgm.pause(); }
+    else if (wantMusic && opened) playMusic();
+  });
+
+  // ---------- Nudge: a "scroll down" button that appears whenever the page sits still ----------
+  var nudge = document.getElementById("nudge");
+  var idleTimer = null;
+  function nearEnd(){ return window.innerHeight + window.scrollY > document.documentElement.scrollHeight - 160; }
+  function showNudge(){ if (opened && !nearEnd()) nudge.classList.add("on"); }
+  window.addEventListener("scroll", function(){
+    nudge.classList.remove("on"); clearTimeout(idleTimer); idleTimer = setTimeout(showNudge, 1800);
+  }, {passive:true});
+  nudge.addEventListener("click", function(){ window.scrollBy({top: Math.round(window.innerHeight * 0.75), behavior: reduce ? "auto" : "smooth"}); });
+  function showControls(){ musicBtn.classList.add("on"); idleTimer = setTimeout(showNudge, 1500); }
+
   // ---------- Opening: leaves swing inward, then a gentle step through the doorway ----------
-  function finish(){ gate.hidden = true; document.body.classList.remove("gate-on"); }
+  function finish(){ gate.hidden = true; document.body.classList.remove("gate-on"); showControls(); }
   function openGate(){
     if (opened) return; opened = true;
     window.scrollTo(0, 0);
+    playMusic();
     if (reduce || !gate.animate) {
       document.body.classList.add("revealed");
       gate.style.transition = "opacity .5s ease"; gate.style.opacity = "0";
