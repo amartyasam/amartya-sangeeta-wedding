@@ -339,7 +339,7 @@ footer .sig{font-size:1.7rem;margin-top:14px}
   </div>
 </div>
 
-<audio id="bgm" src="audio/shubh-mangal.mp3" loop preload="auto"></audio>
+<audio id="bgm" src="audio/krishna-loop.mp3" loop preload="auto"></audio>
 <button class="music" id="musicBtn" type="button" aria-label="Pause music">
   <svg viewBox="0 0 24 24" aria-hidden="true"><g class="bars" fill="currentColor"><rect x="4" y="6" width="3" height="13" rx="1.5"/><rect x="10.5" y="3" width="3" height="16" rx="1.5"/><rect x="17" y="8" width="3" height="11" rx="1.5"/></g><path class="slash" d="M3 21 L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
 </button>
@@ -679,17 +679,40 @@ footer .sig{font-size:1.7rem;margin-top:14px}
   Promise.all([preload(gateSrc), preload("images/bedi.webp"), preload("images/bedi-1000.webp"), preload("images/ganesh.webp")]);
 
 
-  // ---------- Music: starts with the tap on the doors, loops, can be paused ----------
+  // ---------- Music: starts with the tap on the doors and loops without a gap ----------
   var bgm = document.getElementById("bgm");
   var musicBtn = document.getElementById("musicBtn");
-  var wantMusic = true;
+  var wantMusic = true, AC = window.AudioContext || window.webkitAudioContext;
+  var ctx = null, buf = null, srcNode = null, gainNode = null, started = false;
+  if (AC) {
+    try {
+      ctx = new AC(); gainNode = ctx.createGain(); gainNode.gain.value = 0.85; gainNode.connect(ctx.destination);
+      fetch(bgm.getAttribute("src")).then(function(r){ return r.arrayBuffer(); })
+        .then(function(ab){ return new Promise(function(ok, no){ ctx.decodeAudioData(ab, ok, no); }); })
+        .then(function(b){ buf = b; if (opened && wantMusic) playMusic(); })
+        .catch(function(){ ctx = null; });
+    } catch (e) { ctx = null; }
+  }
+  function isPlaying(){ return ctx && buf ? (started && ctx.state === "running") : !bgm.paused; }
   function setMusicUI(playing){ musicBtn.classList.toggle("paused", !playing); musicBtn.setAttribute("aria-label", playing ? "Pause music" : "Play music"); }
-  function playMusic(){ if (!bgm) return; bgm.volume = 0.8; var p = bgm.play(); if (p && p.then) p.then(function(){ setMusicUI(true); }).catch(function(){ setMusicUI(false); }); else setMusicUI(true); }
+  function playMusic(){
+    if (ctx) {
+      var go = ctx.resume ? ctx.resume() : Promise.resolve();
+      if (buf && !started) {
+        srcNode = ctx.createBufferSource(); srcNode.buffer = buf; srcNode.loop = true;
+        srcNode.connect(gainNode); srcNode.start(0); started = true;
+      }
+      Promise.resolve(go).then(function(){ setMusicUI(!!buf); });
+      if (buf) return;
+    }
+    if (!ctx) { bgm.volume = 0.85; var p = bgm.play(); if (p && p.then) p.then(function(){ setMusicUI(true); }).catch(function(){ setMusicUI(false); }); else setMusicUI(true); }
+  }
+  function pauseMusic(){ if (ctx && started) ctx.suspend(); else bgm.pause(); setMusicUI(false); }
   musicBtn.addEventListener("click", function(){
-    if (bgm.paused) { wantMusic = true; playMusic(); } else { wantMusic = false; bgm.pause(); setMusicUI(false); }
+    if (isPlaying()) { wantMusic = false; pauseMusic(); } else { wantMusic = true; playMusic(); }
   });
   document.addEventListener("visibilitychange", function(){
-    if (document.hidden) { if (!bgm.paused) bgm.pause(); }
+    if (document.hidden) { if (isPlaying()) { if (ctx && started) ctx.suspend(); else bgm.pause(); } }
     else if (wantMusic && opened) playMusic();
   });
 
