@@ -181,12 +181,16 @@ body.revealed .g-in{opacity:1;transform:none;transition-delay:.5s}
 @media (max-width:420px){.event{grid-template-columns:1fr;gap:4px}}
 
 /* Gallery placeholders */
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
-.ph{aspect-ratio:3/4;max-width:100%;border-radius:999px 999px 8px 8px;border:2px solid var(--turmeric);background:repeating-linear-gradient(45deg,rgba(232,178,58,.12) 0 8px,transparent 8px 16px),var(--lac);display:flex;align-items:flex-end;justify-content:center;padding:12px;text-align:center;color:var(--muted);font-size:.8rem}
-.ph.wide{grid-column:span 3;aspect-ratio:16/9;border-radius:999px 999px 8px 8px / 60% 60% 8px 8px}
-.gallery-note{text-align:center;color:var(--muted);font-size:.9rem;margin-top:14px}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+.ph{position:relative;margin:0;aspect-ratio:3/4;max-width:100%;overflow:hidden;border-radius:999px 999px 10px 10px / 34% 34% 10px 10px;border:2px solid var(--turmeric);box-shadow:0 0 0 5px var(--lac),0 0 0 6px rgba(232,178,58,.45),0 14px 30px -14px rgba(0,0,0,.7);background:var(--lac)}
+.ph img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
+.ph.feature{grid-column:1 / -1;justify-self:center;width:min(100%,440px);aspect-ratio:1000/1263}
+.ph.feature img{object-position:50% 50%}
+.ph.wide{grid-column:1 / -1;aspect-ratio:1400/991;border-radius:22px}
+.ph.wide img{object-position:50% 40%}
+.ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 10px 12px;text-align:center;font-family:var(--display);font-style:italic;font-weight:600;font-size:clamp(1.05rem,3.6vw,1.4rem);color:#F9DE8E;text-shadow:0 2px 6px rgba(0,0,0,.85);background:linear-gradient(180deg,rgba(26,6,6,0),rgba(26,6,6,.78))}
 
-footer{background:var(--lac);text-align:center;padding-block:40px 48px}
+footer{background:var(--lac);text-align:center;padding-block:40px calc(104px + env(safe-area-inset-bottom, 0px))}
 footer .f-odia{font-size:1.6rem}
 footer p{color:var(--muted);margin-top:8px}
 footer .sig{font-size:1.7rem;margin-top:14px}
@@ -287,6 +291,16 @@ footer .sig{font-size:1.7rem;margin-top:14px}
 .celebrations .dim{display:none}
 }
 
+/* Big "Scroll down" button that floats above the Ganesh idol when the reveal screen sits still */
+.idol-nudge{position:absolute;left:50%;top:var(--nudge-top,48%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px;padding:0;border:0;background:none;color:#F4CF74;cursor:pointer;transform:translate(-50%,-50%);opacity:0;pointer-events:none;transition:opacity .6s ease}
+.idol-nudge.on{opacity:1;pointer-events:auto}
+.idol-nudge.on .in-circle,.idol-nudge.on .in-label{animation:float-y 1.8s ease-in-out infinite}
+.in-circle{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 40% 35%,rgba(90,20,24,.92),rgba(26,6,6,.92));border:2px solid #E8B23A;box-shadow:0 0 0 6px rgba(232,178,58,.18),0 0 26px rgba(255,200,110,.45),0 10px 22px rgba(0,0,0,.55)}
+.in-circle svg{width:26px;height:30px}
+.in-label{font-family:var(--caps);font-weight:600;font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;color:#FFF2C6;background:rgba(26,6,6,.78);border:1px solid rgba(232,178,58,.6);border-radius:999px;padding:6px 14px 5px;white-space:nowrap;text-shadow:0 1px 3px rgba(0,0,0,.8)}
+@keyframes float-y{0%,100%{transform:translateY(-6px)}50%{transform:translateY(8px)}}
+.idol-nudge:focus-visible{outline:2px solid #F4CF74;outline-offset:6px;border-radius:12px}
+
 /* ---------- Scroll helpers: hand-drawn doodles, a floating nudge, and the music toggle ---------- */
 .doodle{display:flex;flex-direction:column;align-items:center;gap:2px;color:#E8B23A;padding-block:6px 10px;pointer-events:none}
 .doodle.l{align-items:flex-start;padding-left:max(16%, 24px)}
@@ -310,7 +324,7 @@ footer .sig{font-size:1.7rem;margin-top:14px}
 .nudge:focus-visible,.music:focus-visible{outline:2px solid #F4CF74;outline-offset:3px}
 
 @media (prefers-reduced-motion:reduce){
-  .g-float,.g-glow,.g-floor,.pill .dot::after,.scroll-cue::after,.pill,.pill .hand,.pill::after,.doodle svg,.nudge svg,.music .bars rect{animation:none}
+  .g-float,.g-glow,.g-floor,.pill .dot::after,.scroll-cue::after,.pill,.pill .hand,.pill::after,.doodle svg,.nudge svg,.music .bars rect,.idol-nudge.on .in-circle,.idol-nudge.on .in-label{animation:none}
   .pill{opacity:1}
   .g-in{transition:opacity .4s ease}
 }
@@ -358,6 +372,10 @@ footer .sig{font-size:1.7rem;margin-top:14px}
     </div>
   </div>
   <div class="hero-shade"></div>
+  <button class="idol-nudge" id="idolNudge" type="button" aria-label="Scroll down to see the invitation">
+    <span class="in-circle"><svg viewBox="0 0 26 30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3 V24"/><path d="M5 16 L13 25 L21 16"/></svg></span>
+    <span class="in-label">Scroll down</span>
+  </button>
   <div class="wrap hero-in">
     <div class="hero-top">
       <p class="odia gold h-odia">ଶୁଭ ବିବାହ</p>
@@ -501,7 +519,7 @@ footer .sig{font-size:1.7rem;margin-top:14px}
           <div class="mini-lotus" aria-hidden="true"><span></span><svg viewBox="0 0 30 16"><path d="M15 1 C11 5 11 10 15 15 C19 10 19 5 15 1Z M15 15 C9 14 5 10 3 6 C8 6 12 9 15 15Z M15 15 C21 14 25 10 27 6 C22 6 18 9 15 15Z" fill="currentColor"/></svg><span></span></div>
           <dl class="facts">
             <dt>Date</dt><dd>Wednesday, 2 December 2026</dd>
-            <dt>Baraat</dt><dd>8:00 PM</dd>
+            <dt>Time</dt><dd>6:00 PM</dd>
             <dt>Venue</dt><dd>BBSR Club Annexe</dd>
           </dl>
           <a class="maptile" href="https://www.google.com/maps/search/?api=1&amp;query=BBSR+Club+Annexe%2C+Bhubaneswar%2C+Odisha" aria-label="Get directions to BBSR Club Annexe in Google Maps">
@@ -595,12 +613,11 @@ footer .sig{font-size:1.7rem;margin-top:14px}
     <p class="eyebrow">Moments</p>
     <h2>Our Story in Pictures</h2>
     <div class="gallery">
-      <div class="ph wide">Couple photo</div>
-      <div class="ph">Amartya</div>
-      <div class="ph">Pre-wedding</div>
-      <div class="ph">Sangeeta</div>
+      <figure class="ph feature"><img src="images/couple-childhood.webp" width="1000" height="1263" loading="lazy" decoding="async" alt="Amartya and Sangeeta as toddlers, dressed as a little groom and bride"><figcaption>Amartya &amp; Sangeeta</figcaption></figure>
+      <figure class="ph"><img src="images/amartya.webp" width="800" height="1067" loading="lazy" decoding="async" alt="Amartya smiling in a black shirt"><figcaption>Amartya</figcaption></figure>
+      <figure class="ph"><img src="images/sangeeta.webp" width="800" height="1067" loading="lazy" decoding="async" alt="Sangeeta in a green silk saree"><figcaption>Sangeeta</figcaption></figure>
+      <figure class="ph wide"><img src="images/engagement.webp" width="1400" height="991" loading="lazy" decoding="async" alt="Amartya and Sangeeta raising their joined hands at their engagement"><figcaption>Engagement</figcaption></figure>
     </div>
-    <p class="gallery-note">Photos coming soon.</p>
   </div>
 </section>
 
@@ -667,7 +684,11 @@ footer .sig{font-size:1.7rem;margin-top:14px}
     var ox = (W - dw) / 2, oy = (H - dh) / 2;
     ganesh.style.left = px(ox + 0.5 * dw);
     ganesh.style.top = px(oy + 0.45 * dh);
-    ganesh.style.height = px(Math.min(0.2 * dh, H * 0.26));
+    var gh = Math.min(0.2 * dh, H * 0.26);
+    ganesh.style.height = px(gh);
+    var idolTop = heroBg.offsetTop + oy + 0.45 * dh - gh / 2;
+    var hero = heroBg.parentNode;
+    hero.style.setProperty("--nudge-top", px(Math.max(idolTop - 50, heroBg.offsetTop + 30)));
   }
   placeGanesh();
 
@@ -720,11 +741,24 @@ footer .sig{font-size:1.7rem;margin-top:14px}
   var nudge = document.getElementById("nudge");
   var idleTimer = null;
   function nearEnd(){ return window.innerHeight + window.scrollY > document.documentElement.scrollHeight - 160; }
-  function showNudge(){ if (opened && !nearEnd()) nudge.classList.add("on"); }
+  function showNudge(){ if (opened && !nearEnd() && !(window.scrollY < window.innerHeight * 0.4)) nudge.classList.add("on"); }
   window.addEventListener("scroll", function(){
     nudge.classList.remove("on"); clearTimeout(idleTimer); idleTimer = setTimeout(showNudge, 1800);
   }, {passive:true});
   nudge.addEventListener("click", function(){ window.scrollBy({top: Math.round(window.innerHeight * 0.75), behavior: reduce ? "auto" : "smooth"}); });
+  var idolNudge = document.getElementById("idolNudge");
+  var idolTimer = null;
+  function heroInView(){ return window.scrollY < window.innerHeight * 0.4; }
+  function showIdolNudge(){ if (opened && heroInView()) idolNudge.classList.add("on"); }
+  idolNudge.addEventListener("click", function(){
+    var next = document.querySelector(".leaf");
+    var y = next ? next.getBoundingClientRect().top + window.scrollY - 24 : window.innerHeight;
+    window.scrollTo({top: y, behavior: reduce ? "auto" : "smooth"});
+  });
+  window.addEventListener("scroll", function(){
+    if (window.scrollY > 30) { idolNudge.classList.remove("on"); clearTimeout(idolTimer); }
+    else if (opened) { clearTimeout(idolTimer); idolTimer = setTimeout(showIdolNudge, 4000); }
+  }, {passive:true});
   function showControls(){ musicBtn.classList.add("on"); idleTimer = setTimeout(showNudge, 1500); }
 
   // ---------- Opening: leaves swing inward, then a gentle step through the doorway ----------
@@ -736,7 +770,7 @@ footer .sig{font-size:1.7rem;margin-top:14px}
     if (reduce || !gate.animate) {
       document.body.classList.add("revealed");
       gate.style.transition = "opacity .5s ease"; gate.style.opacity = "0";
-      setTimeout(finish, 550); return;
+      setTimeout(finish, 550); idolTimer = setTimeout(showIdolNudge, 4000); return;
     }
     var swing = {duration:1600, delay:120, easing:"cubic-bezier(.42,0,.22,1)", fill:"forwards"};
     ui.animate([{opacity:1},{opacity:0}], {duration:350, easing:"ease-out", fill:"forwards"});
@@ -748,6 +782,7 @@ footer .sig{font-size:1.7rem;margin-top:14px}
     stage.animate([{transform:"scale(1)"},{transform:"scale(1.45)"}], {duration:1500, delay:950, easing:"cubic-bezier(.5,0,.6,1)", fill:"forwards"});
     heroBg.animate([{transform:"scale(1)"},{transform:"scale(1.04)"}], {duration:3000, delay:1500, easing:"cubic-bezier(.2,.6,.3,1)", fill:"forwards"});
     setTimeout(function(){ document.body.classList.add("revealed"); }, 1500);
+    idolTimer = setTimeout(showIdolNudge, 1500 + 4000);
     var fade = gate.animate([{opacity:1},{opacity:0}], {duration:800, delay:1700, easing:"ease-in-out", fill:"forwards"});
     fade.onfinish = finish;
   }
