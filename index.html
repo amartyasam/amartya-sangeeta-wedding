@@ -238,8 +238,13 @@ footer .sig{font-size:1.7rem;margin-top:14px}
 .celebrations .dim{position:absolute;inset:0;background:var(--night);opacity:0;pointer-events:none;border-radius:18px;z-index:5}
 .celebrations .text{position:relative;padding:38px 34px 34px 48px;display:flex;flex-direction:column;min-width:0}
 .celebrations .card.flip .text{padding:38px 48px 34px 34px}
-.celebrations .num-row{display:flex;align-items:flex-end;gap:16px}
+.celebrations .num-row{display:flex;align-items:center;flex-wrap:wrap;gap:12px 18px}
 .celebrations .num{font-family:var(--display);font-weight:600;font-size:clamp(3.6rem,9vw,5.6rem);line-height:.8;color:transparent;-webkit-text-stroke:1.2px var(--accent);font-variant-numeric:lining-nums}
+.celebrations .when{display:flex;align-items:center;gap:10px;line-height:1}
+.celebrations .when .day{font-family:var(--display);font-weight:700;font-size:clamp(4.2rem,11vw,6rem);line-height:.78;color:var(--accent);font-variant-numeric:lining-nums;letter-spacing:-.02em;text-shadow:0 2px 0 rgba(255,255,255,.6)}
+.celebrations .when .mon{display:flex;flex-direction:column;gap:6px;padding-left:12px;border-left:2px solid var(--accent)}
+.celebrations .when .mon b{font-family:var(--caps);font-weight:600;font-size:clamp(1.3rem,3.6vw,1.7rem);letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.celebrations .when .mon i{font-family:var(--display);font-style:italic;font-weight:600;font-size:clamp(1.05rem,3vw,1.25rem);color:var(--ink-soft)}
 .celebrations .cat{font-family:var(--caps);font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:5px 12px 4px;margin-bottom:6px;white-space:nowrap}
 .celebrations .title{font-family:var(--display);font-style:italic;font-weight:600;font-size:clamp(2.3rem,6vw,3.1rem);line-height:1;margin:14px 0 0;color:var(--ink);text-wrap:balance}
 .celebrations .title .amp{color:var(--accent);font-weight:500}
@@ -462,11 +467,37 @@ footer .sig{font-size:1.7rem;margin-top:14px}
       <div class="card-in">
         <span class="band"></span>
         <div class="text">
-          <div class="num-row"><span class="num">01</span><span class="cat">Pre-wedding ritual</span></div>
+          <div class="num-row"><div class="when" aria-label="Tuesday, 1 December 2026"><span class="day">1</span><span class="mon"><b>Dec</b><i>Tuesday</i></span></div><span class="cat">Pre-wedding ritual</span></div>
           <h3 class="title">Haldi</h3>
           <p class="lede">Turmeric, laughter and blessings for the couple</p>
           <div class="mini-lotus" aria-hidden="true"><span></span><svg viewBox="0 0 30 16"><path d="M15 1 C11 5 11 10 15 15 C19 10 19 5 15 1Z M15 15 C9 14 5 10 3 6 C8 6 12 9 15 15Z M15 15 C21 14 25 10 27 6 C22 6 18 9 15 15Z" fill="currentColor"/></svg><span></span></div>
-          <dl class="facts"><dt>Date</dt><dd>Tuesday, 1 December 2026</dd><dt>Time</dt><dd>10:00 AM</dd></dl>
+          <dl class="facts"><dt>Time</dt><dd>10:00 AM</dd><dt>Venue</dt><dd>Hill Side Mandap, Dumduma</dd></dl>
+          <a class="maptile" href="https://www.google.com/maps/search/?api=1&amp;query=Hill+Side+Mandap%2C+Dumduma%2C+Bhubaneswar%2C+Odisha" aria-label="Get directions to Hill Side Mandap in Google Maps">
+            <svg class="map" viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <rect width="400" height="150" fill="#F1F3F4"/>
+              <g transform="translate(400 0) scale(-1 1)">
+                <g fill="#E4E7EA">
+                  <rect x="14" y="12" width="58" height="34" rx="3"/><rect x="84" y="12" width="44" height="34" rx="3"/><rect x="236" y="10" width="62" height="30" rx="3"/><rect x="312" y="10" width="74" height="30" rx="3"/>
+                  <rect x="20" y="96" width="70" height="40" rx="3"/><rect x="104" y="104" width="52" height="34" rx="3"/><rect x="290" y="92" width="96" height="46" rx="3"/>
+                </g>
+                <rect x="170" y="70" width="40" height="28" rx="4" fill="#DDEFD8"/>
+                <g stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round">
+                  <path d="M0 58 H400"/><path d="M152 0 V150"/><path d="M226 58 L300 150"/><path d="M0 88 C80 84 120 70 152 58"/>
+                </g>
+                <g stroke="#D5DAE0" stroke-width="1" fill="none">
+                  <path d="M0 54.5 H400 M0 61.5 H400"/><path d="M148.5 0 V150 M155.5 0 V150"/>
+                </g>
+                <path d="M-10 150 C90 128 170 110 230 74 C280 44 330 18 410 6" stroke="#A9BDD3" stroke-width="12" fill="none" stroke-linecap="round"/>
+                <path d="M-10 150 C90 128 170 110 230 74 C280 44 330 18 410 6" stroke="#C7D5E4" stroke-width="5" fill="none" stroke-linecap="round"/>
+              </g>
+              <g transform="translate(330 40)">
+                <ellipse cx="0" cy="32" rx="7" ry="2.6" fill="rgba(0,0,0,.22)"/>
+                <path d="M0 32 C-3 22 -12 16 -12 6 A12 12 0 0 1 12 6 C12 16 3 22 0 32Z" fill="#EA4335"/>
+                <circle cx="0" cy="6" r="4.4" fill="#A52714"/>
+              </g>
+            </svg>
+            <span class="map-cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15Z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Get directions</span>
+          </a>
         </div>
         <div class="art">
           <div class="arch"><img src="images/haldi.webp" width="500" height="500" loading="eager" fetchpriority="low" decoding="async" alt="Illustration of the couple at the haldi bath with marigolds and a carved mirror"></div>
@@ -479,11 +510,11 @@ footer .sig{font-size:1.7rem;margin-top:14px}
       <div class="card-in">
         <span class="band"></span>
         <div class="text">
-          <div class="num-row"><span class="num">02</span><span class="cat">Sacred ritual</span></div>
+          <div class="num-row"><div class="when" aria-label="Tuesday, 1 December 2026"><span class="day">1</span><span class="mon"><b>Dec</b><i>Tuesday</i></span></div><span class="cat">Sacred ritual</span></div>
           <h3 class="title">Mangalakrutya</h3>
           <p class="lede">The kalasa, the lamp and the first auspicious rites</p>
           <div class="mini-lotus" aria-hidden="true"><span></span><svg viewBox="0 0 30 16"><path d="M15 1 C11 5 11 10 15 15 C19 10 19 5 15 1Z M15 15 C9 14 5 10 3 6 C8 6 12 9 15 15Z M15 15 C21 14 25 10 27 6 C22 6 18 9 15 15Z" fill="currentColor"/></svg><span></span></div>
-          <dl class="facts"><dt>Date</dt><dd>Tuesday, 1 December 2026</dd><dt>Time</dt><dd>4:00 PM</dd></dl>
+          <dl class="facts"><dt>Time</dt><dd>4:00 PM</dd></dl>
         </div>
         <div class="art">
           <div class="arch"><img src="images/mangalakrutya.webp" width="500" height="500" loading="eager" fetchpriority="low" decoding="async" alt="Illustration of a kalasa with coconut, brass lamp and a Pattachitra temple cloth"></div>
@@ -496,11 +527,37 @@ footer .sig{font-size:1.7rem;margin-top:14px}
       <div class="card-in">
         <span class="band"></span>
         <div class="text">
-          <div class="num-row"><span class="num">03</span><span class="cat">Evening of music</span></div>
+          <div class="num-row"><div class="when" aria-label="Tuesday, 1 December 2026"><span class="day">1</span><span class="mon"><b>Dec</b><i>Tuesday</i></span></div><span class="cat">Evening of music</span></div>
           <h3 class="title">Sangeet</h3>
           <p class="lede">Dhol, songs and dancing under the lanterns</p>
           <div class="mini-lotus" aria-hidden="true"><span></span><svg viewBox="0 0 30 16"><path d="M15 1 C11 5 11 10 15 15 C19 10 19 5 15 1Z M15 15 C9 14 5 10 3 6 C8 6 12 9 15 15Z M15 15 C21 14 25 10 27 6 C22 6 18 9 15 15Z" fill="currentColor"/></svg><span></span></div>
-          <dl class="facts"><dt>Date</dt><dd>Tuesday, 1 December 2026</dd><dt>Time</dt><dd>6:30 PM</dd></dl>
+          <dl class="facts"><dt>Time</dt><dd>6:30 PM</dd><dt>Venue</dt><dd>Hill Side Mandap, Dumduma</dd></dl>
+          <a class="maptile" href="https://www.google.com/maps/search/?api=1&amp;query=Hill+Side+Mandap%2C+Dumduma%2C+Bhubaneswar%2C+Odisha" aria-label="Get directions to Hill Side Mandap in Google Maps">
+            <svg class="map" viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <rect width="400" height="150" fill="#F1F3F4"/>
+              <g transform="translate(400 0) scale(-1 1)">
+                <g fill="#E4E7EA">
+                  <rect x="14" y="12" width="58" height="34" rx="3"/><rect x="84" y="12" width="44" height="34" rx="3"/><rect x="236" y="10" width="62" height="30" rx="3"/><rect x="312" y="10" width="74" height="30" rx="3"/>
+                  <rect x="20" y="96" width="70" height="40" rx="3"/><rect x="104" y="104" width="52" height="34" rx="3"/><rect x="290" y="92" width="96" height="46" rx="3"/>
+                </g>
+                <rect x="170" y="70" width="40" height="28" rx="4" fill="#DDEFD8"/>
+                <g stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round">
+                  <path d="M0 58 H400"/><path d="M152 0 V150"/><path d="M226 58 L300 150"/><path d="M0 88 C80 84 120 70 152 58"/>
+                </g>
+                <g stroke="#D5DAE0" stroke-width="1" fill="none">
+                  <path d="M0 54.5 H400 M0 61.5 H400"/><path d="M148.5 0 V150 M155.5 0 V150"/>
+                </g>
+                <path d="M-10 150 C90 128 170 110 230 74 C280 44 330 18 410 6" stroke="#A9BDD3" stroke-width="12" fill="none" stroke-linecap="round"/>
+                <path d="M-10 150 C90 128 170 110 230 74 C280 44 330 18 410 6" stroke="#C7D5E4" stroke-width="5" fill="none" stroke-linecap="round"/>
+              </g>
+              <g transform="translate(330 40)">
+                <ellipse cx="0" cy="32" rx="7" ry="2.6" fill="rgba(0,0,0,.22)"/>
+                <path d="M0 32 C-3 22 -12 16 -12 6 A12 12 0 0 1 12 6 C12 16 3 22 0 32Z" fill="#EA4335"/>
+                <circle cx="0" cy="6" r="4.4" fill="#A52714"/>
+              </g>
+            </svg>
+            <span class="map-cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15Z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Get directions</span>
+          </a>
         </div>
         <div class="art">
           <div class="arch"><img src="images/sangeet.webp" width="500" height="500" loading="eager" fetchpriority="low" decoding="async" alt="Illustration of the couple dancing beside a dhol and guitar under string lights"></div>
@@ -513,12 +570,11 @@ footer .sig{font-size:1.7rem;margin-top:14px}
       <div class="card-in">
         <span class="band"></span>
         <div class="text">
-          <div class="num-row"><span class="num">04</span><span class="cat">The wedding day</span></div>
+          <div class="num-row"><div class="when" aria-label="Wednesday, 2 December 2026"><span class="day">2</span><span class="mon"><b>Dec</b><i>Wednesday</i></span></div><span class="cat">The wedding day</span></div>
           <h3 class="title">Baraat <span class="amp">&amp;</span> Wedding</h3>
           <p class="lede">The groom's procession, then the sacred vows</p>
           <div class="mini-lotus" aria-hidden="true"><span></span><svg viewBox="0 0 30 16"><path d="M15 1 C11 5 11 10 15 15 C19 10 19 5 15 1Z M15 15 C9 14 5 10 3 6 C8 6 12 9 15 15Z M15 15 C21 14 25 10 27 6 C22 6 18 9 15 15Z" fill="currentColor"/></svg><span></span></div>
           <dl class="facts">
-            <dt>Date</dt><dd>Wednesday, 2 December 2026</dd>
             <dt>Time</dt><dd>6:00 PM</dd>
             <dt>Venue</dt><dd>BBSR Club Annexe</dd>
           </dl>
@@ -560,12 +616,11 @@ footer .sig{font-size:1.7rem;margin-top:14px}
       <div class="card-in">
         <span class="band"></span>
         <div class="text">
-          <div class="num-row"><span class="num">05</span><span class="cat">Celebration dinner</span></div>
+          <div class="num-row"><div class="when" aria-label="Friday, 4 December 2026"><span class="day">4</span><span class="mon"><b>Dec</b><i>Friday</i></span></div><span class="cat">Celebration dinner</span></div>
           <h3 class="title">Reception</h3>
           <p class="lede">An evening to toast the newlyweds</p>
           <div class="mini-lotus" aria-hidden="true"><span></span><svg viewBox="0 0 30 16"><path d="M15 1 C11 5 11 10 15 15 C19 10 19 5 15 1Z M15 15 C9 14 5 10 3 6 C8 6 12 9 15 15Z M15 15 C21 14 25 10 27 6 C22 6 18 9 15 15Z" fill="currentColor"/></svg><span></span></div>
           <dl class="facts">
-            <dt>Date</dt><dd>Friday, 4 December 2026</dd>
             <dt>Time</dt><dd>7:00 PM onwards</dd>
             <dt>Venue</dt><dd>Hill Side Mandap, Dumduma</dd>
           </dl>
